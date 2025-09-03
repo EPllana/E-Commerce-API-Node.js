@@ -85,3 +85,59 @@ export const loginUser = async(req,res)=>{
 
   }
 }
+
+export const updateUser = async(req,res)=>{
+  try{
+    const userId = req.params.id;
+    const{name,surname,email,role,phoneNumber}=req.body;
+    const user = await User.findById(userId);
+    if(!user){
+      return res.status(400).json({message:"User Not Found"})
+
+    }
+    if(name)user.name=name;
+    if(surname)user.surname=surname;
+    if(email)user.email=email;
+    if(role)user.role=role;
+    if(phoneNumber)user.phoneNumber=phoneNumber;
+    await user.save();
+
+    res.status(201).json({message:"User Updated Succefully",user})
+
+  }catch(error){
+    console.error("Erro Updating User", error.message);
+    res.status(500).json({message:"Server Error"})
+  }
+}
+
+export const changePassword = async (req,res)=>{
+  try{
+    const userId=req.params.id   // kta mevon me token e shendrrrojm ne req.user._id;
+    const{oldPassword, newPassword}=req.body;
+
+    if(!oldPassword || !newPassword){
+      return res.status(400).json({message:"Oldpassword and newPassword Required"})
+    }
+    const user = await User.findById(userId)
+    if(!user){
+      return  res.status(400).json({message:"User Not Found"})
+    }
+
+    const isOldPasswordValid = await bcrypt.compare(oldPassword,user.password)
+    if(!isOldPasswordValid){
+      return res.status(404).json({message:"Old Passwrod Incorrect"})
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(201).json({message:"Password Changed Succefully"})
+
+
+  }catch(error){
+    console.error("Change Password Doesnt Work")
+    res.status(500).json({message:"Server Error"})
+  }
+
+}
