@@ -3,7 +3,13 @@
   "type": "module",
   "version": "1.0.0",
   "description": "A RESTful API for managing an advanced E-Commerce platform built with Node.js, Express, and MongoDB.",
-  "keywords": [  "ecommerce","nodejs","express", "mongodb", "api"],  
+  "keywords": [
+    "ecommerce",
+    "nodejs",
+    "express",
+    "mongodb",
+    "api"
+  ],
   "license": "ISC",
   "author": "ernispllana",
   "main": "server.js",
@@ -19,6 +25,7 @@
     "url": "git+https://github.com/EPllana/E-Commerce-API-Node.js.git"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
