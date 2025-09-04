@@ -110,6 +110,7 @@ export const updateUser = async(req,res)=>{
   }
 }
 
+
 export const changePassword = async (req,res)=>{
   try{
     const userId=req.params.id   // kta mevon me token e shendrrrojm ne req.user._id;
@@ -141,3 +142,22 @@ export const changePassword = async (req,res)=>{
   }
 
 }
+
+export const deleteUser = async(req,res)=>{
+  try{
+    const userId = req.params.id;
+    const user = await User.findByIdAndDelete(userId)
+    if(!user){
+      return res.status(400).json({message:"User Not Found"})
+    }
+    res.status(201).json({message:"User Deleted Succefully"})
+
+
+  }catch(erorr){
+    console.error("Error deleting user",erorr),
+    res.status(500).json({message:"Server Error"})
+
+  }
+}
+
+
