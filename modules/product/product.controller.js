@@ -41,7 +41,6 @@ export const getAllProducts = async (req,res)=>{
         }
         
         const product = await Product.find().skip(skip).limit(limit).sort({createdAt:-1});
-        console.log(product);
         const totalDocuments = await Product.countDocuments()
        
         res.status(200).json({
@@ -86,3 +85,19 @@ export const updateProduct = async (req, res) => {
         res.status(500).json({ message: "Server Error" });
     }
 };
+
+export const deleteProduct = async(req,res)=>{
+    try{
+        const productId=req.params.id;
+        const deleteproduct =  await Product.findByIdAndDelete(productId)
+        if(!deleteproduct){
+            return res.status(404).json({message:"Product Not Found"})
+        }
+        res.status(201).json({message:"Product Deleted Succefully"})
+
+    }catch(error){
+        console.log("Error Deleting Product", error)
+        res.status(500).json({message:"Server Error"})
+
+    }
+}
