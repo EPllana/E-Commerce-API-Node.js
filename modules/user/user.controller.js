@@ -162,3 +162,26 @@ export const getOneUser = async(req,res)=>{
 
 
 
+export const updateMe = async(req,res)=>{
+  try{
+    const {name,surname,email,phoneNumber}=req.body;
+    const userId = req.user._id;
+
+    const user = await User.findById(userId)
+    if(!user){return res.status(404).json({message:"User Not Found"})
+  }
+    if(name)user.name= name;
+    if(surname)user.surname = surname;
+    if(email)user.email = email;
+    if(phoneNumber)user.phoneNumber = phoneNumber;
+
+    await user.save();
+    res.status(201).json({message:"User Updated Succefully"})
+
+  }catch(error){
+    console.log(error)
+    res.status(500).json({message:"Server Error"})
+
+
+  }
+}

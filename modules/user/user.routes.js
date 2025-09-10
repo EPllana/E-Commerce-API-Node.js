@@ -1,5 +1,5 @@
 import express from "express";
-import {createUser, getAllUsers,updateUser,changePassword,deleteUser,getOneUser} from "../user/user.controller.js"
+import {createUser, getAllUsers,updateUser,changePassword,deleteUser,getOneUser,updateMe} from "../user/user.controller.js"
 import {isAuthenticated,rolet} from "../../middlewares/auth.middleware.js"
 
 
@@ -11,4 +11,5 @@ router.put("/update/:id", updateUser)
 router.put("/changepassword/:id", changePassword);
 router.delete("/:id",deleteUser)
 router.get("/:id", getOneUser)
+router.put("/updateMe",isAuthenticated,updateMe)
 export default router;
