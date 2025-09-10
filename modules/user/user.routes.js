@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/", createUser);
 router.get("/getAllUsers",isAuthenticated, rolet(["admin"]), getAllUsers);
 router.put("/update/:id", updateUser)
-router.put("/changepassword/:id", changePassword);
+router.put("/changepassword",isAuthenticated, changePassword);
 router.delete("/:id",deleteUser)
 router.get("/:id", getOneUser)
 router.put("/updateMe",isAuthenticated,updateMe)

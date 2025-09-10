@@ -97,7 +97,7 @@ export const updateUser = async(req,res)=>{
 
 export const changePassword = async (req,res)=>{
   try{
-    const userId=req.params.id   // kta mevon me token e shendrrrojm ne req.user._id;
+    const userId=req.user._id   // kta mevon me token e shendrrrojm ne req.user._id;
     const{oldPassword, newPassword}=req.body;
 
     if(!oldPassword || !newPassword){
@@ -185,3 +185,4 @@ export const updateMe = async(req,res)=>{
 
   }
 }
+
