@@ -130,7 +130,7 @@ export const changePassword = async (req,res)=>{
 export const deleteUser = async(req,res)=>{
   try{
     const userId = req.params.id;
-    const user = await User.findByIdAndDelete(userId)
+    const user = await User.findByIdAndUpdate(userId, {isActive:false})
     if(!user){
       return res.status(400).json({message:"User Not Found"})
     }
@@ -186,3 +186,18 @@ export const updateMe = async(req,res)=>{
   }
 }
 
+export const deleteMe = async(req,res)=>{
+  try{
+    const userId = req.user._id; 
+
+    const user = await User.findByIdAndUpdate(userId,{isActive:false})
+    if(!user){return res.status(401).json({message:"Invalid Credicials"})}
+
+    res.status(201).json({message:"User Deleted Succefully"})
+
+  }catch(error){
+    console.log(error)
+    res.status(500).json({message:"Server Error"})
+
+  }
+}
