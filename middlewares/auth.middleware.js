@@ -29,8 +29,9 @@ export const rolet = (roles)=> {
        if(!req.user){
           return res.status(401).json({message:"Acces Denied"})
        }
-       if(roles && !roles.includes(req.user.role)) 
+       if(roles && !roles.includes(req.user.role)) {
           return res.status(401).json({message:"Acces Denied"})
+       }
 
           next();
        }

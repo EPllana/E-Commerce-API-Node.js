@@ -11,7 +11,7 @@ router.delete("/deleteMe",isAuthenticated, deleteMe)
 router.get("/getAllUsers",isAuthenticated, rolet(["admin"]), getAllUsers);
 router.put("/update/:id", updateUser)
 router.put("/changepassword",isAuthenticated, changePassword);
-router.delete("/:id",deleteUser)
+router.delete("/:id", isAuthenticated,rolet(["admin"]),deleteUser)
 router.get("/:id", getOneUser)
 router.put("/updateMe",isAuthenticated,updateMe)
 export default router;
